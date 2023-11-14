@@ -5,4 +5,7 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+# Chrono is the feature that can manipulate with time
 [dependencies]
+diesel = { version = "2.0", features = ["postgres", "chrono"] }
+chrono = "0.4"

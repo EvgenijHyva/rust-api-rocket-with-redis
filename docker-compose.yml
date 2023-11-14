@@ -8,16 +8,18 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=app_db
     command: ["postgres", "-c", "log_statement=all"]
+    ports:
+      - 5000:5432
 
   redis:
     image: redis:latest
 
   app:
-    build: .
+    build: ./cr8s
     environment:
       # diesel
       - DATABASE_URL=postgres://postgres:postgres@postgres/app_db
     ports:
       - 8000:8000
     volumes:
-      - ./:/app
+      - ./cr8s/:/app

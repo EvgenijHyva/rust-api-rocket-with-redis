@@ -15,6 +15,7 @@ services:
   app:
     build: .
     environment:
+      # diesel
       - DATABASE_URL=postgres://postgres:postgres@postgres/app_db
     ports:
       - 8000:8000

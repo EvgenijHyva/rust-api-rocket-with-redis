@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 # Chrono is the feature that can manipulate with time
+# rc is release candidate
 [dependencies]
 serde = { version = "1.0", features = [
 	"derive",
@@ -15,3 +16,6 @@ chrono = { version = "0.4", features = [
 	"serde",
 ] } # Deserialize support for objects (json)
 rocket = { version = "0.5.0-rc", features = ["json"] }
+rocket_sync_db_pools = { version = "0.1.0-rc", features = [
+	"diesel_postgres_pool",
+] } # Additional module for db connection

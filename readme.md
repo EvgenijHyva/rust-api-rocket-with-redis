@@ -17,6 +17,15 @@ Migrations with diesel ORM
 docker-compose exec app diesel migration run
 # REVERT MIGRATIONS
 docker-compose exec app diesel migration revert
+
+# compile in docker compose & run app
+docker-compose exec app cargo run
+```
+
+```bash
+# Testing url example
+docker-compose exec app curl 127.0.0.1:8000/rustaceans
+docker-compose exec app curl 127.0.0.1:8000/ -H "Accept: application/json" # returns json body of non existing url /
 ```
 
 # Staring project from scratch

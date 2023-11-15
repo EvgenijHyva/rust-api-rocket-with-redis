@@ -1,5 +1,6 @@
 mod models;
 mod repositories;
+mod rocket_routes;
 mod schema;
 
 #[rocket::main]

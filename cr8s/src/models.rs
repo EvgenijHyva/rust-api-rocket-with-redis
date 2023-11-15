@@ -1,8 +1,9 @@
 use crate::schema::*;
 use chrono::NaiveDateTime;
 use diesel::{deserialize::Queryable, query_builder::AsChangeset, Insertable};
+use rocket::serde::Deserialize;
 
-#[derive(Queryable, AsChangeset)]
+#[derive(Queryable, AsChangeset, Deserialize)]
 pub struct Rustacean {
     pub id: i32,
     pub name: String,
@@ -10,7 +11,7 @@ pub struct Rustacean {
     pub created_at: NaiveDateTime,
 }
 
-#[derive(Insertable)]
+#[derive(Insertable, Deserialize)]
 #[diesel(table_name=rustaceans)]
 pub struct NewRustAcean {
     pub name: String,
@@ -28,7 +29,7 @@ pub struct Crate {
     pub created_at: NaiveDateTime,
 }
 
-#[derive(Insertable)]
+#[derive(Insertable, Deserialize)]
 #[diesel(table_name=crates)]
 pub struct NewCrate {
     pub rustacean_id: i32,

@@ -20,7 +20,7 @@ pub struct NewRustAcean {
     pub email: String,
 }
 
-#[derive(Queryable, Deserialize, Serialize)]
+#[derive(Queryable, AsChangeset, Deserialize, Serialize)]
 pub struct Crate {
     #[serde(skip_deserializing)]
     pub id: i32,
@@ -33,7 +33,7 @@ pub struct Crate {
     pub created_at: NaiveDateTime,
 }
 
-#[derive(Insertable, Deserialize, Serialize)]
+#[derive(Insertable, Deserialize)]
 #[diesel(table_name=crates)]
 pub struct NewCrate {
     pub rustacean_id: i32,

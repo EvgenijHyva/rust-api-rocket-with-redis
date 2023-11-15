@@ -10,7 +10,7 @@ use crate::rocket_routes::DbConn;
 pub async fn get_crates(db: DbConn) -> Result<Value, Custom<Value>> {
     db.run(|c| {
         CrateRepository::find_multiple(c, 100)
-            .map(|a_crate| json!(a_crate))
+            .map(|a_crates| json!(a_crates))
             .map_err(|_| Custom(Status::InternalServerError, json!("Crate error!")))
     })
     .await

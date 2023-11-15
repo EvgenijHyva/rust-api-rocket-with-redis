@@ -23,15 +23,22 @@ docker-compose exec app cargo run
 ```
 
 ```bash
-# Testing url example
+# returns json body of non existing url '/'
+docker-compose exec app curl 127.0.0.1:8000/ -H "Accept: application/json"
+
+# Testing rustaceans url example
 docker-compose exec app curl 127.0.0.1:8000/rustaceans
-docker-compose exec app curl 127.0.0.1:8000/ -H "Accept: application/json" # returns json body of non existing url '/'
 # post
 docker-compose exec app curl 127.0.0.1:8000/rustaceans -d '{"name": "Url-test", "email": "test@me.now"}' -H "Content-type: application/json"
 # update
 docker-compose exec app curl 127.0.0.1:8000/rustaceans/3 -d '{"name": "Updating-test", "email": "test-update@me.now"}' -X PUT -H "Content-type: application/json"
 # delete
 docker-compose exec app curl 127.0.0.1:8000/rustaceans/1 -X DELETE
+
+# Crates url test examples
+docker-compose exec app curl 127.0.0.1:8000/crates
+# delete
+docker-compose exec app curl 127.0.0.1:8000/crates/2 -X DELETE
 ```
 
 # Staring project from scratch

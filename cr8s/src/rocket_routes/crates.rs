@@ -53,7 +53,7 @@ pub async fn update_crate(
     .await
 }
 
-#[rocket::delete("/crate/<id>")]
+#[rocket::delete("/crates/<id>")]
 pub async fn delete_crate(db: DbConn, id: i32) -> Result<NoContent, Custom<Value>> {
     db.run(move |c| {
         CrateRepository::delete(c, id)

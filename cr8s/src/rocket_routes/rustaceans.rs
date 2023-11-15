@@ -7,8 +7,9 @@ use rocket::{
 use crate::{
     models::{NewRustAcean, Rustacean},
     repositories::RustAceanRepository,
-    DbConn,
 };
+
+use crate::rocket_routes::DbConn;
 
 #[rocket::get("/rustaceans")]
 pub async fn get_rustaceans(db: DbConn) -> Result<Value, Custom<Value>> {

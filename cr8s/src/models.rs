@@ -20,14 +20,16 @@ pub struct NewRustAcean {
     pub email: String,
 }
 
-#[derive(Queryable)]
+#[derive(Queryable, Deserialize, Serialize)]
 pub struct Crate {
+    #[serde(skip_deserializing)]
     pub id: i32,
     pub rustacean_id: i32,
     pub code: String,
     pub name: String,
     pub version: String,
     pub description: Option<String>,
+    #[serde(skip_deserializing)]
     pub created_at: NaiveDateTime,
 }
 

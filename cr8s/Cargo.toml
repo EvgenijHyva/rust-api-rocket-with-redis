@@ -8,13 +8,11 @@ edition = "2021"
 # Chrono is the feature that can manipulate with time
 # rc is release candidate
 [dependencies]
-serde = { version = "1.0", features = [
-	"derive",
-] } # support for deriving serialize the objects (json)
+# support for deriving serialize the objects (json)
+serde = { version = "1.0", features = ["derive"] }
 diesel = { version = "2.0", features = ["postgres", "chrono"] }
-chrono = { version = "0.4", features = [
-	"serde",
-] } # Deserialize support for objects (json)
+# Deserialize support for objects (json)
+chrono = { version = "0.4", features = ["serde"] }
 rocket = { version = "0.5.0-rc", features = ["json"] }
 rocket_sync_db_pools = { version = "0.1.0-rc", features = [
 	"diesel_postgres_pool",

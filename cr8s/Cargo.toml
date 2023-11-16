@@ -17,6 +17,8 @@ rocket = { version = "0.5.0-rc", features = ["json"] }
 rocket_sync_db_pools = { version = "0.1.0-rc", features = [
 	"diesel_postgres_pool",
 ] } # Additional module for db connection
+# Serde_json for more flexibility
+serde_json = "1.0" # abstraction for tests that allow to change rocket to another framework.
 
 [dev-dependencies]
 # Testing dependency for send requests

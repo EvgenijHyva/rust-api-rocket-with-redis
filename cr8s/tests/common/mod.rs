@@ -1,5 +1,5 @@
 use reqwest::{blocking::Client, StatusCode};
-use rocket::{response::status, serde::json::Value};
+use serde_json::Value;
 
 pub static APP_HOST: &'static str = "http://127.0.0.1:8000";
 
@@ -37,4 +37,14 @@ pub fn cleanup_test_crate(client: &Client, a_crate: Value) {
         .send()
         .unwrap();
     assert_eq!(response.status(), StatusCode::NO_CONTENT);
+}
+
+pub fn merge_to_excpected_object(body: &Value, returned_object_json: &Value) -> Value {
+    let expected_obj: Value = {
+        let mut merged_obj = body.clone();
+        merged_obj["id"] = returned_object_json["id"].clone();
+        merged_obj["created_at"] = returned_object_json["created_at"].clone();
+        merged_obj
+    };
+    expected_obj
 }

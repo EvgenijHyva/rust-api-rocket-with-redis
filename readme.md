@@ -41,6 +41,13 @@ docker-compose exec app curl 127.0.0.1:8000/crates
 docker-compose exec app curl 127.0.0.1:8000/crates/2 -X DELETE
 ```
 
+### Testing
+
+```bash
+# tests are contained under tests folder
+docker-compose exec app cargo test
+```
+
 # Staring project from scratch
 
 ```bash

@@ -17,3 +17,7 @@ rocket = { version = "0.5.0-rc", features = ["json"] }
 rocket_sync_db_pools = { version = "0.1.0-rc", features = [
 	"diesel_postgres_pool",
 ] } # Additional module for db connection
+
+[dev-dependencies]
+# Testing dependency for send requests
+reqwest = { version = "0.11", features = ["json", "blocking"] }

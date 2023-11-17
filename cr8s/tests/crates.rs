@@ -200,3 +200,14 @@ fn test_delete_crate() {
     // cleanup
     common::cleanup_test_rustacian(&client, rustacian);
 }
+
+#[test]
+fn test_not_found_crate() {
+    let client = Client::new();
+
+    let response = client
+        .get(format!("{}/crates/99999999", common::APP_HOST))
+        .send()
+        .unwrap();
+    assert_eq!(response.status(), StatusCode::NOT_FOUND);
+}

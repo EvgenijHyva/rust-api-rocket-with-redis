@@ -120,3 +120,13 @@ fn test_delete_rustacean() {
         .unwrap();
     assert_eq!(response.status(), StatusCode::NO_CONTENT);
 }
+
+#[test]
+fn test_not_found_rustacian() {
+    let client = Client::new();
+    let response = client
+        .get(format!("{}/rustaceans/99999999", common::APP_HOST))
+        .send()
+        .unwrap();
+    assert_eq!(response.status(), StatusCode::NOT_FOUND);
+}

@@ -77,8 +77,8 @@ fn test_view_crate() {
 #[test]
 fn test_get_crates() {
     let client = Client::new();
-    let body1 = json!({ "name": "test1", "email": "email1@mail.com"});
-    let body2 = json!({"name": "test2", "email": "email2@mail.com"});
+    let body1 = json!({ "name": "test1", "email": "email1@mail.com" });
+    let body2 = json!({ "name": "test2", "email": "email2@mail.com" });
 
     let rustacian1 = common::setup_rustacean(&client, &body1);
     let rustacian2 = common::setup_rustacean(&client, &body2);
@@ -173,4 +173,28 @@ fn test_update_crate() {
     common::cleanup_test_crate(&client, a_crate_json);
     common::cleanup_test_rustacian(&client, rustacian);
     common::cleanup_test_rustacian(&client, rustacian_updated);
+}
+
+#[test]
+fn test_delete_crate() {
+    let client = Client::new();
+    let rustacian_body = json!({ "name": "deleteTest", "email": "delete.crate.rustacian@mail.com"});
+    let rustacian = common::setup_rustacean(&client, &rustacian_body);
+
+    let a_crate_body = json!({
+        "rustacean_id": rustacian["id"],
+        "code": "Test12345",
+        "name": "DeleteTestCrate",
+        "version": "1.0.0",
+        "description": "Test Delete crate description"
+    });
+
+    let a_crate = common::setup_crate(&client, &a_crate_body);
+
+    let response = client
+        .delete(format!("{}/crates/{}", common::APP_HOST, a_crate["id"]))
+        .send()
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::NO_CONTENT);
 }

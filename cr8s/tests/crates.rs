@@ -197,4 +197,6 @@ fn test_delete_crate() {
         .unwrap();
 
     assert_eq!(response.status(), StatusCode::NO_CONTENT);
+    // cleanup
+    common::cleanup_test_rustacian(&client, rustacian);
 }

@@ -118,3 +118,59 @@ fn test_get_crates() {
     common::cleanup_test_crate(&client, a_crate2);
     common::cleanup_test_rustacian(&client, rustacian2);
 }
+
+#[test]
+fn test_update_crate() {
+    let client = Client::new();
+    let body = json!({ "name": "updateTest", "email": "update.crate.rustacian@mail.com"});
+    let rustacian = common::setup_rustacean(&client, &body);
+
+    let a_crate_body = json!({
+        "rustacean_id": rustacian["id"],
+        "code": "Test12345",
+        "name": "BeforeUpdateTestCrate",
+        "version": "1.0.0",
+        "description": "Test update crate description"
+    });
+
+    let a_crate = common::setup_crate(&client, &a_crate_body);
+    let initial_expected_crate = common::merge_to_excpected_object(&a_crate_body, &a_crate);
+    // check initial crate is same as delivered body crate
+    assert_eq!(initial_expected_crate, a_crate);
+
+    // updating also foreign key
+    let body_updated =
+        json!({ "name": "updatedRustacian", "email": "update.crate.rustacian2@mail.com"});
+    let rustacian_updated = common::setup_rustacean(&client, &body_updated);
+
+    let a_crate_update_body = json!({
+        "rustacean_id": rustacian_updated["id"],
+        "code": "TestUpdate12345",
+        "name": "AfterUpdateTestCrate",
+        "version": "1.0.1",
+        "description": "Update completed"
+    });
+
+    let response = client
+        .put(format!("{}/crates/{}", common::APP_HOST, a_crate["id"]))
+        .json(&a_crate_update_body)
+        .send()
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::OK);
+    let a_crate_json: Value = response.json().unwrap();
+
+    let expected_updated_crate =
+        common::merge_to_excpected_object(&a_crate_update_body, &a_crate_json);
+    // check for updated crate
+    assert_eq!(a_crate_json, expected_updated_crate);
+    assert_ne!(a_crate_json, a_crate);
+    // check that updated same object
+    assert_eq!(a_crate_json["id"], a_crate["id"]);
+    assert_ne!(a_crate_json["rustacean_id"], a_crate["rustacean_id"]);
+
+    // clean up
+    common::cleanup_test_crate(&client, a_crate_json);
+    common::cleanup_test_rustacian(&client, rustacian);
+    common::cleanup_test_rustacian(&client, rustacian_updated);
+}

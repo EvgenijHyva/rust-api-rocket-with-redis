@@ -19,6 +19,8 @@ rocket_sync_db_pools = { version = "0.1.0-rc", features = [
 ] } # Additional module for db connection
 # Serde_json for more flexibility
 serde_json = "1.0" # abstraction for tests that allow to change rocket to another framework.
+# error loging
+log = "0.4"
 
 [dev-dependencies]
 # Testing dependency for send requests
